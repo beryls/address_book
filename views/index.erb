@@ -1,7 +1,7 @@
 <h1>Contacts</h1>
 
 <ol>
-<% @db.exec(@sql) do |result| %>
+<% @db.exec(@show_db) do |result| %>
   <% result.each do |row| %>
     <li>Name: <%= row.values[0].capitalize %>
       <%= row.values[1].capitalize %>,

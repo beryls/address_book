@@ -11,7 +11,7 @@ require 'sinatra/reloader'
 
 get "/" do
   @db = PG.connect(:dbname => 'address_book', :host => 'localhost')
-  @sql = "select * from contacts"
+  @show_db = "select * from contacts"
   erb :index
 end
 
@@ -26,31 +26,8 @@ post "/add_person" do
   @gender = params[:gender]
   @dtgd = params[:dtgd]
   @phone = params[:phone]
-
+  db = PG.connect(:dbname => 'address_book', :host => 'localhost')
+  add_to_db = "insert into contacts (first, last, age, gender, dtgd, phone) values ('#{@first}', '#{@last}', '#{@age}', '#{@gender}', '#{@dtgd}', '#{@phone}')"
+  db.exec(add_to_db)
   erb :add_person
 end
-
-# get all the inputs
-# put them in the string
-# make it work
-
-# this establishes a connection to the database
-
-# executing sql code
-# passing a string of sql to the database
-
-# insert into database
-# db = PG.connect(:dbname => 'address_book',
-#   :host => 'localhost')
-
-# puts "what's your name girl?"
-# name = gets.chomp
-# sql = "insert into contacts (first) values ('#{name}')"
-# db.exec(sql)
-# sql = "select first, age from contacts"
-# db.exec(sql) do |result|
-#   result.each do |row|
-#     puts row
-#   end
-# end
-# db.close
