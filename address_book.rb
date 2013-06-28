@@ -7,7 +7,11 @@ require 'pry'
 require 'sinatra'
 require 'sinatra/reloader'
 
+
+
 get "/" do
+  @db = PG.connect(:dbname => 'address_book', :host => 'localhost')
+  @sql = "select * from contacts"
   erb :index
 end
 
@@ -22,6 +26,7 @@ post "/add_person" do
   @gender = params[:gender]
   @dtgd = params[:dtgd]
   @phone = params[:phone]
+
   erb :add_person
 end
 
@@ -30,8 +35,7 @@ end
 # make it work
 
 # this establishes a connection to the database
-# db = PG.connect(:dbname => 'address_book',
-#   :host => 'localhost')
+
 # executing sql code
 # passing a string of sql to the database
 

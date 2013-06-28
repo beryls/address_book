@@ -1,1 +1,22 @@
 <h1>Contacts</h1>
+
+<ol>
+<% @db.exec(@sql) do |result| %>
+  <% result.each do |row| %>
+    <li>Name: <%= row.values[0].capitalize %>
+      <%= row.values[1].capitalize %>,
+      Age: <%= row.values[2] %>,
+      Gender: <% if row.values[3] == 'm' %>
+              <%= "male" %>,
+            <% else %>
+              <%= "female" %>,
+            <% end %>
+      DTGD: <% if row.values[4] == 't' %>
+              <%= "true" %>,
+            <% else %>
+              <%= "false" %>,
+            <% end %>
+      Phone: <%= row.values[5] %></li>
+  <% end %>
+<% end %>
+</ol>
